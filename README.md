@@ -1,1 +1,1 @@
-# GIPHY-Search
+# TriviaGame
