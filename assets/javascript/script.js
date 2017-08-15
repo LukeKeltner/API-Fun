@@ -1,6 +1,5 @@
 $(document).ready(function() 
 {
-
 	var resultNumber = 20
 	var trending = false;
 	var searchButtons = $('.search-buttons')
@@ -81,7 +80,6 @@ $(document).ready(function()
 	searchResults.on('click', function(event)
 	{
 		clickedID = event.target.className
-		console.log(clickedID)
 		imgClicked = $('.'+clickedID)
 
 		for (var i=0; i<resultNumber; i++)
