@@ -3,6 +3,9 @@ $(document).ready(function()
 	var searchResults = $('.search-results')
 	var movieTitle = []
 	var imdbRating = []
+	var backgroundColorArray = []
+	var borderColorArray = []
+	var firstTime = true
 
 	var getSearchResults = function(string)
 	{
@@ -45,12 +48,51 @@ $(document).ready(function()
 			console.log(response.imdbRating)
 			console.log(movieTitle)
 			console.log(imdbRating)
+			drawGraph()
 		});
 	}
 
 	var drawGraph = function()
 	{
+			$('#myChart').empty()
 
+			if (!firstTime)
+			{
+				ctx.empty()
+				firstTime = false
+			}
+
+			var ctx = document.getElementById("myChart").getContext('2d');
+
+			var r = Math.floor(Math.random()*256)
+			var g = Math.floor(Math.random()*256)
+			var b = Math.floor(Math.random()*256)
+
+			backgroundColorArray.push('rgba('+r+', '+g+', '+b+', 0.2)')
+			borderColorArray.push('rgba('+r+', '+g+', '+b+', 1)')
+
+			var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: movieTitle,
+		        datasets: [{
+		            label: '# of Votes',
+		            data: imdbRating,
+		            backgroundColor: backgroundColorArray,
+		            borderColor: borderColorArray,
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		    }
+		});
 	}
 
 
@@ -68,7 +110,7 @@ $(document).ready(function()
 	$('.search-results').on('click', function(event)
 	{
 		movieSelected = $('#'+event.target.id)
-		$('.users-pick').html(movieSelected.data('title'))
+		$('.users-pick').html(movieSelected.data('title')+" added!")
 		getUserMovie(movieSelected.data('title'))
 	})
 
@@ -87,43 +129,7 @@ $(document).ready(function()
 
 
 
-	var ctx = document.getElementById("myChart").getContext('2d');
-	var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+
 
 
 
