@@ -5,7 +5,7 @@ $(document).ready(function()
 	{
 		$("img").hover(function()
 		{
-		    $(this).animate({'width':'300px'}, 100);
+		    $(this).animate({'width':'210px'}, 100);
 		}, 
 
 			function()
@@ -27,7 +27,7 @@ $(document).ready(function()
 
 	var getNewButton = function(string)
 	{
-		var newButton = $("<button type='button' class='btn btn-primary'>"+string+"</button>")
+		var newButton = $("<button type='button' class='btn btn-default'>"+string+"</button>")
 		searchButtons.append(newButton)
 	}
 
@@ -52,8 +52,6 @@ $(document).ready(function()
 
 	    }).done(function(response) 
 	    {
-	    	console.log(response)
-
 		    for (var i=0; i<response.data.length; i++)
 		    {
 				var newImg = $('<img>')
@@ -65,10 +63,8 @@ $(document).ready(function()
 				newImg.data('stop', stillImg)
 				newImg.data('move', moveImg)
 				newImg.data('moving', false)
-				searchResults.append(newImg)
+				searchResults.append(newImg)	    		
 			}
-
-			imgEffects()
 	    });
 	}
 
@@ -79,6 +75,7 @@ $(document).ready(function()
 		if (userInput!=="")
 		{
 			getNewButton(userInput)
+			getSearchResults(userInput, false)
 		}
 	})
 
@@ -103,16 +100,19 @@ $(document).ready(function()
 	{
 		clickedID = event.target.className
 		imgClicked = $('.'+clickedID)
+		console.log('clickedId is '+clickedID)
 
 		for (var i=0; i<resultNumber; i++)
 		{
-			if (clickedID==i)
+			if (clickedID==i && event.target.tagName === 'IMG')
 			{
 				if (!imgClicked.data('moving'))
 				{
 					var moveData = imgClicked.data('move')
 					imgClicked.attr('src', moveData)
 					imgClicked.data('moving', true)
+					imgClicked.animate({'width':'300px'}, 100);
+					imgClicked.css({'border':'4px solid #5cf442'});
 				}
 
 				else
@@ -120,10 +120,10 @@ $(document).ready(function()
 					var stopData = imgClicked.data('stop')
 					imgClicked.attr('src', stopData)
 					imgClicked.data('moving', false)
+					imgClicked.animate({'width':'200px'}, 100);
+					imgClicked.css({'border':'0px solid #5cf442'});
 				}
 			}
 		}
 	})
-
-	imgEffects()
 });
