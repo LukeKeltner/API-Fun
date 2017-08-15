@@ -54,6 +54,7 @@ $(document).ready(function()
 	$('#search-button').on('click', function()
 	{
 		var userInput = $('input').val()
+
 		if (userInput!=="")
 		{
 			getNewButton(userInput)
@@ -68,8 +69,13 @@ $(document).ready(function()
 	searchButtons.on('click', function(event)
 	{
 		var searchString = event.target.textContent
-		getSearchResults(searchString, false)
+		console.log(event)
+		console.log(searchString)
 
+		if (event.target.tabIndex>-1)
+		{
+			getSearchResults(searchString, false)		
+		}
 	})
 
 	searchResults.on('click', function(event)
