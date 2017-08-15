@@ -1,5 +1,25 @@
 $(document).ready(function() 
 {
+
+	var imgEffects = function()
+	{
+		$("img").hover(function()
+		{
+		    $(this).animate({'width':'300px'}, 100);
+		}, 
+
+			function()
+			{
+			    $(this).css({'width':'200px'});
+		    }
+		);
+
+		$('search-results-row').hover(function()
+		{
+			$('img').css({'width':'200px'});
+		})
+	}
+
 	var resultNumber = 20
 	var trending = false;
 	var searchButtons = $('.search-buttons')
@@ -47,6 +67,8 @@ $(document).ready(function()
 				newImg.data('moving', false)
 				searchResults.append(newImg)
 			}
+
+			imgEffects()
 	    });
 	}
 
@@ -73,7 +95,7 @@ $(document).ready(function()
 
 		if (event.target.tabIndex>-1)
 		{
-			getSearchResults(searchString, false)		
+			getSearchResults(searchString, false)
 		}
 	})
 
@@ -102,4 +124,6 @@ $(document).ready(function()
 			}
 		}
 	})
+
+	imgEffects()
 });
