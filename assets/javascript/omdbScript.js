@@ -78,6 +78,7 @@ $(document).ready(function()
 	{
 			firstTime = false
 			$('#myChart').empty()
+			$('#myChart').css('width', '200px')
 
 			var ctx = document.getElementById("myChart").getContext('2d');
 
@@ -108,37 +109,14 @@ $(document).ready(function()
 			console.log(imdbRating)
 
 			myChart = new Chart(ctx, {
-		    type: 'bar',
+		    type: 'polarArea',
 		    data: {
-		        //labels: movieTitle,
-		        abels: ['Movie 1', 'Movie 2'],
-		        datasets: /*[{
+		        labels: movieTitle,
+		        datasets: [{
 		            label: 'IMDB Rating',
 		            data: imdbRating,
 		            backgroundColor: backgroundColorArray,
 		            borderColor: borderColorArray,
-		            borderWidth: 1
-		        },
-		        {
-		            label: 'pooooop',
-		            data: imdbRating,
-		            backgroundColor: backgroundColorArray,
-		            borderColor: borderColorArray,
-		            borderWidth: 1
-		        }]*/
-
-		        [{
-		            label: ['Movie 1'],
-		            data: [7.9],
-		            backgroundColor: 'blue',
-		            borderColor: 'blue',
-		            borderWidth: 1
-		        },
-		        {
-		            label: [']Movie 2'],
-		            data: [5.6],
-		            backgroundColor: 'red',
-		            borderColor: 'red',
 		            borderWidth: 1
 		        }]
 		    },
@@ -159,10 +137,6 @@ $(document).ready(function()
 		        }
 		    }
 		});
-/*			console.log('Data before clear')
-			console.log(myChart.tooltip._data.datasets[0].removeData())
-			console.log('Data after clear')
-			console.log(myChart.tooltip._data.datasets[0].data)*/
 	}
 
 

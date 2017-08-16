@@ -20,7 +20,7 @@ $(document).ready(function()
 		})
 	}
 
-	var resultNumber = 20
+	var resultNumber;
 	var trending = false;
 	var searchButtons = $('.search-buttons')
 	var searchResults = $('.search-results')
@@ -70,7 +70,9 @@ $(document).ready(function()
 
 	$('#search-button').on('click', function()
 	{
-		var userInput = $('input').val()
+		var userInput = $('#search').val()
+		resultNumber = $('#result-number').val()
+		console.log(resultNumber)
 
 		if (userInput!=="")
 		{
@@ -81,7 +83,9 @@ $(document).ready(function()
 
 	$('#trending-button').on('click', function()
 	{
+		resultNumber = $('#result-number').val()
 		getSearchResults("", true)
+		console.log(resultNumber)
 	})
 
 	searchButtons.on('click', function(event)
