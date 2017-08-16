@@ -6,6 +6,7 @@ $(document).ready(function()
 	var backgroundColorArray = []
 	var borderColorArray = []
 	var firstTime = true
+	var myChart;
 
 	var getSearchResults = function(string)
 	{
@@ -44,23 +45,20 @@ $(document).ready(function()
 		{	
 			movieTitle.push(response.Title)
 			imdbRating.push(response.imdbRating)
-			console.log(response.Title)
-			console.log(response.imdbRating)
-			console.log(movieTitle)
-			console.log(imdbRating)
+			if (!firstTime)
+			{
+				console.log('before destory')
+				myChart.destroy()
+				console.log('after destory')
+			}
 			drawGraph()
 		});
 	}
 
 	var drawGraph = function()
 	{
+			firstTime = false
 			$('#myChart').empty()
-
-			if (!firstTime)
-			{
-				ctx.empty()
-				firstTime = false
-			}
 
 			var ctx = document.getElementById("myChart").getContext('2d');
 
@@ -71,12 +69,12 @@ $(document).ready(function()
 			backgroundColorArray.push('rgba('+r+', '+g+', '+b+', 0.2)')
 			borderColorArray.push('rgba('+r+', '+g+', '+b+', 1)')
 
-			var myChart = new Chart(ctx, {
+			myChart = new Chart(ctx, {
 		    type: 'bar',
 		    data: {
 		        labels: movieTitle,
 		        datasets: [{
-		            label: '# of Votes',
+		            label: 'IMDB Rating',
 		            data: imdbRating,
 		            backgroundColor: backgroundColorArray,
 		            borderColor: borderColorArray,
@@ -93,6 +91,10 @@ $(document).ready(function()
 		        }
 		    }
 		});
+/*			console.log('Data before clear')
+			console.log(myChart.tooltip._data.datasets[0].removeData())
+			console.log('Data after clear')
+			console.log(myChart.tooltip._data.datasets[0].data)*/
 	}
 
 
