@@ -8,6 +8,11 @@ body
   margin-top:30px;
 }
 
+#clear-graph
+{
+  margin-top:30px;
+}
+
 canvas
 {
 	height:100px;
