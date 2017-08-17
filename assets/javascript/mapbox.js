@@ -4,6 +4,8 @@ $(document).ready(function()
 	var satellite = 'satellite-v9'
 	var lat;
 	var long;
+	var zoom;
+	var center;
 	key = '44576d69a6ceba81853c602d2283e513'
 	mapboxgl.accessToken = 'pk.eyJ1IjoiY2x1ZWxlc3NsdWtlIiwiYSI6ImNqNmduNDFzNjBhYTEzMnBrZ3lteTUzeHcifQ.V5K5MzJBoG-Aynvi1I1OQA';
 
@@ -11,16 +13,14 @@ $(document).ready(function()
 	{
 		container: 'map',
 		style: 'mapbox://styles/mapbox/'+streets,
-		zoom:0
 	});
 
 	map.on('mousemove', function (event) 
 	{
+		zoom = event.target.transform._zoom
+		center = event.target.transform._center
 		lat = event.lngLat.lat
 		long = event.lngLat.lng
-		console.log(event.lngLat)
-		console.log(lat)
-		console.log(long)
 	});
 
 	map.on('click', function()
@@ -32,10 +32,13 @@ $(document).ready(function()
 	        method: 'GET'
 	      }).done(function(response) 
 	      {
-	        console.log(response)
 	        $('.lat').html(response.coord.lat)
 	        $('.long').html(response.coord.lon)
+	        $('.area').html(response.name)
+	        $('.weather').html(response.weather[0].main+' - '+response.weather[0].description)
+	        $('.temp').html("Temp: "+response.main.temp+" F")
+	        $('.humidity').html("Humidity: "+response.main.humidity)
+	        $('.wind').html("Wind Speed: "+response.wind.speed+" mi/hr")
 	    });
 	})
-	
 });
