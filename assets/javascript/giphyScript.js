@@ -24,6 +24,7 @@ $(document).ready(function()
 	var trending = false;
 	var searchButtons = $('.search-buttons')
 	var searchResults = $('.search-results')
+	var searchedBefore = []
 
 	var getNewButton = function(string)
 	{
@@ -70,10 +71,25 @@ $(document).ready(function()
 
 	$('#search-button').on('click', function()
 	{
-		var userInput = $('#search').val()
+		var userInput = $('#search').val().toLowerCase().trim()
+		console.log(searchedBefore)
+		var searchHappened = false
 
-		if (userInput!=="")
+		for (var i=0; i<searchedBefore.length; i++)
 		{
+			if (userInput === searchedBefore[i])
+			{
+				resultNumber = $('#result-number').val()
+				getSearchResults(userInput, false)
+				searchHappened = true
+				break;
+			}
+		}
+		
+
+		if (!searchHappened && userInput !== "")
+		{
+			searchedBefore.push(userInput)
 			resultNumber = $('#result-number').val()
 			getNewButton(userInput)
 			getSearchResults(userInput, false)
