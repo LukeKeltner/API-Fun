@@ -43,23 +43,28 @@ $(document).ready(function()
 			method: "GET"
 		}).done(function(response)
 		{	
+
 			var currentRating = parseInt(response.imdbRating)
-			console.log(typeof response.imdbRating)
+			console.log(response.Plot)
 
 			if (response.imdbRating === 'N/A')
 			{
 				console.log(response.imdbRating)
 				$('.users-pick').html("No IMDB Rating for "+response.Title)
+				$('.bio').html("")
 			}
 
 			else if (response.imdbRating === undefined)
 			{
 				$('.users-pick').html("Error retrieving Title")
+				$('.bio').html("")
 			}
 
 			else if (typeof response.imdbRating === 'string')
 			{
 				$('.users-pick').html(movieSelected.data('title')+" added!")
+				$('.bio').html('Plot: '+response.Plot)
+				$('.movie-pic').attr('src', response.Poster)
 				console.log(response.imdbRating)
 				movieTitle.push(response.Title)
 				imdbRating.push(response.imdbRating)
@@ -69,74 +74,19 @@ $(document).ready(function()
 					myChart.destroy()
 				}
 
-				drawGraph()				
+				updateGraph()				
 			}
 		});
 	}
 
-	var drawGraph = function()
+	var updateGraph = function()
 	{
-			firstTime = false
-			$('#myChart').empty()
-			$('#myChart').css('width', '200px')
+	    chart.load({
+	        columns: [
+	            [movieTitle[movieTitle.length-1], imdbRating[imdbRating.length-1]]
+	        ]
+	    });
 
-			var ctx = document.getElementById("myChart").getContext('2d');
-
-			var r = Math.floor(Math.random()*256)
-			var g = Math.floor(Math.random()*256)
-			var b = Math.floor(Math.random()*256)
-
-			backgroundColorArray.push('rgba('+r+', '+g+', '+b+', 0.2)')
-			borderColorArray.push('rgba('+r+', '+g+', '+b+', 1)')
-
-			var  dataSets = []
-
-			for (var i=0; i<movieTitle.length; i++)
-			{
-				var obj = 
-				{
-					label: movieTitle[i],
-					data: imdbRating[i],
-		            backgroundColor: backgroundColorArray[i],
-		            borderColor: borderColorArray[i],
-		            borderWidth: 1					
-				}
-
-				dataSets.push(obj)
-			}
-
-			console.log(dataSets)
-			console.log(imdbRating)
-
-			myChart = new Chart(ctx, {
-		    type: 'polarArea',
-		    data: {
-		        labels: movieTitle,
-		        datasets: [{
-		            label: 'IMDB Rating',
-		            data: imdbRating,
-		            backgroundColor: backgroundColorArray,
-		            borderColor: borderColorArray,
-		            borderWidth: 1
-		        }]
-		    },
-		    options: {
-		    	legend: 
-		    	{
-		    		display: true,
-    				text: String,
-    				position: 'right',
-    				fillStyle: Color,
-		    	},
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    beginAtZero:true
-		                }
-		            }]
-		        }
-		    }
-		});
 	}
 
 
@@ -160,46 +110,41 @@ $(document).ready(function()
 	$('#clear-graph').on('click', function()
 	{
 		$('.users-pick').html("Graph Cleared!")
-		myChart.destroy()
+		chart.unload()
 		movieTitle = []
 		imdbRating = []
-	})
+	})	
 
 
 
+	var chart = c3.generate(
+	{
+		title: 
+		{
+  			text: 'IMDB Ratings'
+		},
 
+    	data: 
+    	{
+        	columns: 
+        	[
 
+        	],
 
+        	type: 'bar',
+    	},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+    	legend: 
+    	{
+        	position: 'right'
+    	},
+    
+    	bar: 
+    	{
+        	width: 
+        	{
+            	ratio: 0.9 
+        	}
+    	}
+	});
 });

@@ -12,9 +12,7 @@
 
 		<div class="row" id="graph-container">
 			<div class="col-md-12 text-center">
-				<h1 class="users-pick">
-				</h1>
-				<canvas id="myChart" style="width:200px;"></canvas>
+				<div id="chart"></div>
 			</div>
 		</div>
 
@@ -24,6 +22,10 @@
 				<br>
 				<button type="button" class="btn btn-primary btn-lg" id="search-button">Search</button>
 				<button type="button" class="btn btn-primary btn-lg" id="clear-graph">Clear Graph</button>
+				<h1 class="users-pick">
+				</h1>
+				<p class="bio"></p>
+				<img src="" class="movie-pic"/>
 			</div>
 
 			<div class="col-md-6 text-center">
@@ -35,15 +37,11 @@
 
 	</div>
 	
-
-
-
-
-
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/javascript/omdbScript.js"></script>
-	<script type="text/javascript" src="assets/javascript/Chart.min.js"></script>
+	<script src="assets/c3-0.4.16/d3.v3.min.js" charset="utf-8"></script>
+	<script src="assets/c3-0.4.16/c3.min.js"></script>
+	<link href="assets/c3-0.4.16/c3.css" rel="stylesheet">
 	<link href="assets/css/OMDBStyle.css" rel="stylesheet" />
 
 </body>

@@ -71,11 +71,10 @@ $(document).ready(function()
 	$('#search-button').on('click', function()
 	{
 		var userInput = $('#search').val()
-		resultNumber = $('#result-number').val()
-		console.log(resultNumber)
 
 		if (userInput!=="")
 		{
+			resultNumber = $('#result-number').val()
 			getNewButton(userInput)
 			getSearchResults(userInput, false)
 		}
@@ -96,6 +95,7 @@ $(document).ready(function()
 
 		if (event.target.tabIndex>-1)
 		{
+			resultNumber = $('#result-number').val()
 			getSearchResults(searchString, false)
 		}
 	})
