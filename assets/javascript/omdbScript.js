@@ -45,6 +45,7 @@ $(document).ready(function()
 			method: "GET"
 		}).done(function(response)
 		{	
+			console.log(response.Search[9].imdbID)
 
 			if (response.Error==="Movie not found!")
 			{
@@ -58,7 +59,8 @@ $(document).ready(function()
 					if (response.Search[i].Type === 'movie')
 					{
 						var newButton = $("<button type='button' class='list-group-item' id="+i+">"+response.Search[i].Title+" ("+response.Search[i].Year+")"+"</button>")
-						newButton.data("title", response.Search[i].Title)
+						//newButton.data("title", response.Search[i].Title)
+						newButton.data("title", response.Search[i].imdbID)
 						searchResults.append(newButton)					
 					}
 				}
@@ -69,11 +71,11 @@ $(document).ready(function()
 	var getUserMovie = function(string)
 	{
 		$.ajax({
-			url: "http://www.omdbapi.com/?t="+string+"&y=&plot=short&apikey=40e9cece",
+			url: "http://www.omdbapi.com/?i="+string+"&y=&plot=short&apikey=40e9cece",
 			method: "GET"
 		}).done(function(response)
 		{	
-
+			console.log(response.imdbID)
 			var currentRating = parseInt(response.imdbRating)
 			console.log(response.Plot)
 
@@ -94,7 +96,7 @@ $(document).ready(function()
 
 			else if (typeof response.imdbRating === 'string')
 			{
-				$('.users-pick').html(movieSelected.data('title')+" added!")
+				$('.users-pick').html(response.Title+" added!")
 				$('.bio').html('Plot: '+response.Plot)
 				$('.movie-pic').attr('src', response.Poster)
 				console.log(response.imdbRating)
