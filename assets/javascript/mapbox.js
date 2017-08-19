@@ -2,11 +2,10 @@ $(document).ready(function()
 {
 	var streets = 'streets-v10'
 	var satellite = 'satellite-v9'
+	var satelliteStreets = 'satellite-streets-v10'
 	var lat;
 	var long;
-	var zoom;
-	var center;
-	key = '44576d69a6ceba81853c602d2283e513'
+	OWMkey = '44576d69a6ceba81853c602d2283e513'
 	mapboxgl.accessToken = 'pk.eyJ1IjoiY2x1ZWxlc3NsdWtlIiwiYSI6ImNqNmduNDFzNjBhYTEzMnBrZ3lteTUzeHcifQ.V5K5MzJBoG-Aynvi1I1OQA';
 
 	var map = new mapboxgl.Map(
@@ -17,15 +16,13 @@ $(document).ready(function()
 
 	map.on('mousemove', function (event) 
 	{
-		zoom = event.target.transform._zoom
-		center = event.target.transform._center
 		lat = event.lngLat.lat
 		long = event.lngLat.lng
 	});
 
 	map.on('click', function()
 	{
-		queryURL = 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+long+'&units=imperial&APPID='+key
+		queryURL = 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+long+'&units=imperial&APPID='+OWMkey
 	 	$.ajax(
 	      {
 	        url: queryURL,
@@ -41,4 +38,20 @@ $(document).ready(function()
 	        $('.wind').html("Wind Speed: "+response.wind.speed+" mi/hr")
 	    });
 	})
+
+	$('#street').on('click', function()
+	{
+		map.setStyle('mapbox://styles/mapbox/' + streets);
+	})
+
+	$('#satellite').on('click', function()
+	{
+		map.setStyle('mapbox://styles/mapbox/' + satellite);
+	})
+
+	$('#satellite-street').on('click', function()
+	{
+		map.setStyle('mapbox://styles/mapbox/' + satelliteStreets);
+	})
+
 });

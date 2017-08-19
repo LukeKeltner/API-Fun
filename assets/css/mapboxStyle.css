@@ -21,10 +21,12 @@ h1
   clear:both;
 }
 
-@media (max-width: 767px) 
+.btn
 {
-  .clear
-  {
-    display: block;
-  }
+  margin-bottom: 10px;
+}
+
+#map
+{
+  box-shadow: 0 30px 30px grey;
 }

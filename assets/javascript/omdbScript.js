@@ -6,7 +6,37 @@ $(document).ready(function()
 	var backgroundColorArray = []
 	var borderColorArray = []
 	var firstTime = true
-	var myChart;
+
+	var chart = c3.generate(
+	{
+		title: 
+		{
+  			text: 'IMDB Ratings'
+		},
+
+    	data: 
+    	{
+        	columns: 
+        	[
+
+        	],
+
+        	type: 'bar',
+    	},
+
+    	legend: 
+    	{
+        	position: 'right'
+    	},
+    
+    	bar: 
+    	{
+        	width: 
+        	{
+            	ratio: 0.9 
+        	}
+    	}
+	});
 
 	var getSearchResults = function(string)
 	{
@@ -52,12 +82,14 @@ $(document).ready(function()
 				console.log(response.imdbRating)
 				$('.users-pick').html("No IMDB Rating for "+response.Title)
 				$('.bio').html("")
+				$('.movie-pic').attr('src', '')
 			}
 
 			else if (response.imdbRating === undefined)
 			{
 				$('.users-pick').html("Error retrieving Title")
 				$('.bio').html("")
+				$('.movie-pic').attr('src', '')
 			}
 
 			else if (typeof response.imdbRating === 'string')
@@ -115,36 +147,18 @@ $(document).ready(function()
 		imdbRating = []
 	})	
 
-
-
-	var chart = c3.generate(
+	$('#search-input').keyup(function(event)
 	{
-		title: 
+		if (event.which === 13)
 		{
-  			text: 'IMDB Ratings'
-		},
+			searchResults.empty()
+			var userInput = $('input').val()
 
-    	data: 
-    	{
-        	columns: 
-        	[
+			if (userInput!=="")
+			{
+				getSearchResults(userInput)
+			}
+		}
+	})
 
-        	],
-
-        	type: 'bar',
-    	},
-
-    	legend: 
-    	{
-        	position: 'right'
-    	},
-    
-    	bar: 
-    	{
-        	width: 
-        	{
-            	ratio: 0.9 
-        	}
-    	}
-	});
 });

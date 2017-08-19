@@ -30,24 +30,28 @@ input
  }
 
  /* Transition to a bigger shadow on hover */
-img:hover {
+img:hover 
+{
   box-shadow: 0 30px 30px grey;
 }
 
 /* The fast way */
-img {
+img 
+{
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 /* Pre-render the bigger shadow, but hide it */
-img::after {
+img::after 
+{
   box-shadow: 0 30px 30px grey;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
 
 /* Transition to showing the bigger shadow on hover */
-img:hover::after {
+img:hover::after 
+{
   opacity: 1;
 }
 

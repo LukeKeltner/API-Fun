@@ -1,7 +1,7 @@
 $(document).ready(function() 
 {
 
-	var imgEffects = function()
+/*	var imgEffects = function()
 	{
 		$("img").hover(function()
 		{
@@ -18,13 +18,39 @@ $(document).ready(function()
 		{
 			$('img').css({'width':'200px'});
 		})
-	}
+	}*/
 
 	var resultNumber;
 	var trending = false;
 	var searchButtons = $('.search-buttons')
 	var searchResults = $('.search-results')
 	var searchedBefore = []
+
+	var userSearches = function()
+	{
+		var userInput = $('#search').val().toLowerCase().trim()
+		console.log(searchedBefore)
+		var searchHappened = false
+
+		for (var i=0; i<searchedBefore.length; i++)
+		{
+			if (userInput === searchedBefore[i])
+			{
+				resultNumber = $('#result-number').val()
+			getSearchResults(userInput, false)
+					searchHappened = true
+				break;
+			}
+		}
+			
+		if (!searchHappened && userInput !== "")
+		{
+			searchedBefore.push(userInput)
+			resultNumber = $('#result-number').val()
+			getNewButton(userInput)
+			getSearchResults(userInput, false)
+		}
+	}
 
 	var getNewButton = function(string)
 	{
@@ -71,29 +97,7 @@ $(document).ready(function()
 
 	$('#search-button').on('click', function()
 	{
-		var userInput = $('#search').val().toLowerCase().trim()
-		console.log(searchedBefore)
-		var searchHappened = false
-
-		for (var i=0; i<searchedBefore.length; i++)
-		{
-			if (userInput === searchedBefore[i])
-			{
-				resultNumber = $('#result-number').val()
-				getSearchResults(userInput, false)
-				searchHappened = true
-				break;
-			}
-		}
-		
-
-		if (!searchHappened && userInput !== "")
-		{
-			searchedBefore.push(userInput)
-			resultNumber = $('#result-number').val()
-			getNewButton(userInput)
-			getSearchResults(userInput, false)
-		}
+		userSearches()
 	})
 
 	$('#trending-button').on('click', function()
@@ -144,6 +148,22 @@ $(document).ready(function()
 					imgClicked.css({'border':'0px solid #5cf442'});
 				}
 			}
+		}
+	})
+
+	$('#search').keyup(function(event)
+	{
+		if (event.which === 13)
+		{
+			userSearches()
+		}
+	})
+
+	$('#result-number').keyup(function(event)
+	{
+		if (event.which === 13)
+		{
+			userSearches()
 		}
 	})
 });
