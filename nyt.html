@@ -1,0 +1,92 @@
+
+
+<!-- HTML in collaboration with Ed Hunter, Bret Schneider, and Bob Kwiencien-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="assets/css/nytStyle.css" rel="stylesheet" />
+
+	<title>NYT Search</title>
+
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron text-center"><header><h1>New York Times Search</h1></header></div>
+        <!-- THE SEARCH PANEL -->
+        <div class="panel panel-primary">
+            <div class="panel-heading" id="search-box"><header><h3>Search Box</h3></header></div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <label for=""><h4>Search Term:</h4></label>
+                    <form>
+                        <input type="text" class="form-control" placeholder="Enter Search Term" id="terms">
+                    </form>
+                </div>
+                <br>
+                <label for="basic-url"><h4>Number of Search Results:</h4></label>
+                <div class="input-group">
+                   <!--<input type="text" id="num-results" class="form-control" aria-label="...">-->
+                   <span><div class="well" id="num-results">10</div>
+
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							Pick Search Number
+							<span class="caret"></span>
+						</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a>1</a></li>
+								<li><a>2</a></li>
+								<li><a>3</a></li>
+								<li><a>4</a></li>
+								<li><a>5</a></li>
+								<li><a>6</a></li>
+								<li><a>7</a></li>
+								<li><a>8</a></li>
+								<li><a>9</a></li>
+								<li><a>10</a></li>
+							</ul>
+					</div></span>
+
+                </div><!-- /input-group -->
+                <br>
+                <div class="input-group">
+                    <label for=""><h4>Start Date (Optional):</h4></label>
+                    <form>
+                        <input type="text" class="form-control" placeholder="YYYYMMDD" id="begin-date">
+                    </form>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label for=""><h4>End Date (Optional):</h4></label>
+                    <form>
+                        <input type="text" class="form-control" placeholder="YYYYMMDD" id="end-date">
+                    </form>
+                </div>
+                <br>
+                <button id="submit">Search</button> <button id="clear-button">Clear Results</button>
+            </div>
+        </div>
+        <!-- THE RESULTS -->
+        <div class="panel panel-primary">
+            <div class="panel-heading" id="top-articles"><header><h3>Top Articles</h3></header></div>
+            <div class="panel-body" id="results-body">
+                Educate yourself!
+            </div>
+        </div>
+    </div>
+	
+
+
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="assets/javascript/nytScript.js"></script>
+
+</body>
+</html>

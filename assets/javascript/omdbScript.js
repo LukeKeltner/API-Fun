@@ -5,7 +5,6 @@ $(document).ready(function()
 	var imdbRating = []
 	var backgroundColorArray = []
 	var borderColorArray = []
-	var firstTime = true
 
 	var chart = c3.generate(
 	{
@@ -45,7 +44,7 @@ $(document).ready(function()
 			method: "GET"
 		}).done(function(response)
 		{	
-			console.log(response.Search[9].imdbID)
+			console.log(response.Search)
 
 			if (response.Error==="Movie not found!")
 			{
@@ -59,8 +58,7 @@ $(document).ready(function()
 					if (response.Search[i].Type === 'movie')
 					{
 						var newButton = $("<button type='button' class='list-group-item' id="+i+">"+response.Search[i].Title+" ("+response.Search[i].Year+")"+"</button>")
-						//newButton.data("title", response.Search[i].Title)
-						newButton.data("title", response.Search[i].imdbID)
+						newButton.data("movie-id", response.Search[i].imdbID)
 						searchResults.append(newButton)					
 					}
 				}
@@ -103,11 +101,6 @@ $(document).ready(function()
 				movieTitle.push(response.Title)
 				imdbRating.push(response.imdbRating)
 
-				if (!firstTime)
-				{
-					myChart.destroy()
-				}
-
 				updateGraph()				
 			}
 		});
@@ -116,13 +109,12 @@ $(document).ready(function()
 	var updateGraph = function()
 	{
 	    chart.load({
-	        columns: [
+	        columns: 
+	        [
 	            [movieTitle[movieTitle.length-1], imdbRating[imdbRating.length-1]]
 	        ]
 	    });
-
 	}
-
 
 	$('#search-button').on('click', function()
 	{
@@ -138,7 +130,8 @@ $(document).ready(function()
 	$('.search-results').on('click', function(event)
 	{
 		movieSelected = $('#'+event.target.id)
-		getUserMovie(movieSelected.data('title'))
+		getUserMovie(movieSelected.data('movie-id'))
+		console.log(event.target.id+" and "+movieSelected.data('movie-id'))
 	})
 
 	$('#clear-graph').on('click', function()
@@ -147,20 +140,21 @@ $(document).ready(function()
 		chart.unload()
 		movieTitle = []
 		imdbRating = []
+		$('.bio').html("")
+		$('.movie-pic').attr('src', '')
 	})	
 
 	$('#search-input').keyup(function(event)
 	{
 		if (event.which === 13)
 		{
-			searchResults.empty()
 			var userInput = $('input').val()
 
 			if (userInput!=="")
 			{
+				searchResults.empty()
 				getSearchResults(userInput)
 			}
 		}
 	})
-
 });
