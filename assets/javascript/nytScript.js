@@ -31,7 +31,8 @@ $(document).ready(function()
 		  'q': ""+input+"",
 		  'fq': "new york times",
 		  'begin_date': begin,
-	  	  'end_date': end
+	  	  'end_date': end,
+	  	  'facet_filter': "true"
 		});
 
 		$.ajax({
@@ -47,7 +48,8 @@ $(document).ready(function()
 			  var title = result.response.docs[i].headline.main
 			  var author = result.response.docs[i].byline.original
 			  var info = result.response.docs[i].snippet
-			  var date = Date(Date.parse(result.response.docs[i].pub_date))
+			  //var date = Date(Date.parse(result.response.docs[i].pub_date))
+			  var date = result.response.docs[i].pub_date
 			  var link = result.response.docs[i].web_url
 
 			  createArticle(title, date, info, author, link)		
